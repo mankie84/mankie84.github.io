@@ -22,7 +22,7 @@ bootstrap:
 ### by Manuel Kiewisch
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <div style='text-align: center;'>
-    <img height='480' src='C:\Users\ElitebookHP\Desktop\R_Work\Sleepy App\sleepy.png' alt="Smiley face" style="background:none; border:none; box-shadow:none;" />
+    <img height='480' src='sleepy.png' alt="Smiley face" style="background:none; border:none; box-shadow:none;" />
 </div>
 
 
