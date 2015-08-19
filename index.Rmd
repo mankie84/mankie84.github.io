@@ -1,0 +1,124 @@
+---
+title       : Sleepy App
+subtitle    : An App for sleepy Coursera Heroes
+author      : Manuel Kiewisch
+job         : 
+framework   : revealjs        # {io2012, html5slides, shower, dzslides, ...}
+revealjs:
+  transition: cube
+  center: "true"
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : default      # 
+widgets     : []      # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+url: {lib: "."}
+bootstrap:
+  theme: amelia
+---
+
+
+## Sleepy App
+### by Manuel Kiewisch
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<div style='text-align: center;'>
+    <img height='480' src='C:\Users\ElitebookHP\Desktop\R_Work\Sleepy App\sleepy.png' alt="Smiley face" style="background:none; border:none; box-shadow:none;" />
+</div>
+
+
+--- ds:alert
+### Do you routinely stay up too long, punching R code, studying online...?
+.fragment Do you suffer from any or multiple of the following?
+<br><br>
+
+> - <font color=red><b>General Tiredness</b></font>
+> - <font color=red><b>Red Eyes</b></font>
+> - <font color=red><b>Hallucination</b></font>
+<br><br>
+
+.fragment Then, this App is for **YOU**!
+
+
+--- ds:blackout
+### Sleepy App tells you how to sleep
+
+The self-explanatory interface guides you trough the input panels, covering:
+<br><br>
+
+> - .grow Your Age
+> - .grow Your usual sleep duration
+> - .grow Your usual sleeping and waking times
+<br><br>
+
+In return, sleepy App calculates your sleep difference and optimal waking time!
+
+
+--- ds:soothe &vertical
+### The heart of sleepy App is the sleep-graph!
+#### constructed from over one thousand sleep-samples in controlled experiments with happy sleepers
+Here at the example of 50 years (<font color=red><b>Arrow Down</b></font> for more)
+
+```{r, echo=FALSE,warning=FALSE,error=FALSE,message=FALSE}
+library(ggplot2)
+ sleep1 <- c(sample(c(18,17.5,17,16.5,16,15.5,15,14.5,14,13.5,13,12.5,12), size=200, replace = T, prob = NULL),
+                sample(c(15,14.5,14), size=200, replace = T, prob = NULL),
+                sample(c(12,12.5,13,13.5,14), size=100, replace = T, prob = NULL),
+                sample(c(11,11.5,12,12.5,13), size=100, replace = T, prob = NULL),
+                sample(c(10,10.5,11), size=100, replace = T, prob = NULL),
+                sample(c(8.5,9,9.5,10), size=100, replace = T, prob = NULL),
+                sample(c(7.5,8,8.5,9), size=100, replace = T, prob = NULL)
+                )
+    age1 <- c(rep.int(0,100),rep.int(2/12,100),rep.int(3/12,100),rep.int(1,100),rep.int(3,100),rep.int(5,100),rep.int(12,100),rep.int(18,100),sample(c(19:120), size=100, replace = F, prob = NULL))
+    sleepdata <- data.frame(age1,sleep1)
+age <- c(50,50)
+err <- stats::predict((loess(sleep1~age1,sleepdata)), newdata=age, se = TRUE)
+sleeprange <- c(err$fit + 1.96 * err$se.fit,err$fit - 1.96 * err$se.fit)
+      sleepdata$range <- sleeprange
+      data1 <- data.frame(sleeprange,age)
+ggplot(sleepdata, aes(age1, sleep1)) + stat_smooth(se=T,aes(outfit=ymin<<-..ymin..,outfit2=ymax<<-..ymax..,outfit3=y<<-..y..)) + 
+        annotate("rect",xmin=-Inf,xmax=Inf,ymin=min(sleepdata$range),ymax=max(sleepdata$range),fill="red",alpha = 0.3) +
+        geom_hline(yintercept = (err$fit + 1.96 * err$se.fit)) +
+        geom_hline(yintercept = (err$fit - 1.96 * err$se.fit)) +
+        ylab("Recommended Sleep-Time in Hours") +
+        xlab("Age in years")
+```
+
+
+*** &vertical
+### Check out Sleepy App at
+#### (www.sleepyApp.com)
+
+If you have this nagging feeling that you don't get the most out of your sleep: Sleepy App will help you feel fitter!
+
+```{r echo=FALSE,warning=FALSE,error=FALSE,message=FALSE,fig.width = 6,fig.height=6}
+library(ggplot2)
+ sleep1 <- c(sample(c(18,17.5,17,16.5,16,15.5,15,14.5,14,13.5,13,12.5,12), size=200, replace = T, prob = NULL),
+                sample(c(15,14.5,14), size=200, replace = T, prob = NULL),
+                sample(c(12,12.5,13,13.5,14), size=100, replace = T, prob = NULL),
+                sample(c(11,11.5,12,12.5,13), size=100, replace = T, prob = NULL),
+                sample(c(10,10.5,11), size=100, replace = T, prob = NULL),
+                sample(c(8.5,9,9.5,10), size=100, replace = T, prob = NULL),
+                sample(c(7.5,8,8.5,9), size=100, replace = T, prob = NULL)
+                )
+    age1 <- c(rep.int(0,100),rep.int(2/12,100),rep.int(3/12,100),rep.int(1,100),rep.int(3,100),rep.int(5,100),rep.int(12,100),rep.int(18,100),sample(c(19:120), size=100, replace = F, prob = NULL))
+    sleepdata <- data.frame(age1,sleep1)
+age <- c(10,10)
+err <- stats::predict((loess(sleep1~age1,sleepdata)), newdata=age, se = TRUE)
+sleeprange <- c(err$fit + 1.96 * err$se.fit,err$fit - 1.96 * err$se.fit)
+      sleepdata$range <- sleeprange
+      data1 <- data.frame(sleeprange,age)
+ggplot(sleepdata, aes(age1, sleep1)) + stat_smooth(se=T,aes(outfit=ymin<<-..ymin..,outfit2=ymax<<-..ymax..,outfit3=y<<-..y..)) + 
+        annotate("rect",xmin=-Inf,xmax=Inf,ymin=min(sleepdata$range),ymax=max(sleepdata$range),fill="red",alpha = 0.3) +
+        geom_hline(yintercept = (err$fit + 1.96 * err$se.fit)) +
+        geom_hline(yintercept = (err$fit - 1.96 * err$se.fit)) +
+        ylab("Recommended Sleep-Time in Hours") +
+        xlab("Age in years")
+```
+
+
+</section>
+
+<script>
+$('ul.incremental li').addClass('fragment')
+</script>
+
